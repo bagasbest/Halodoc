@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "513865472757",
+    "project_id": "halodoc-77c55",
+    "storage_bucket": "halodoc-77c55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513865472757:android:eecc402ae5d7bae8c843bc",
+        "android_client_info": {
+          "package_name": "com.halodoc.halodoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513865472757-536b87d3ku9pt7gqit2l5cajeaokio41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5aqvNnoii7EJxrLxVd1xlvOKe6J0lvjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513865472757-536b87d3ku9pt7gqit2l5cajeaokio41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // untuk mengganti halaman contoh: halaman Buat Janji -> halaman Konsultasi -> halaman Beranda -> halaman Transaksi -> halaman Profil
         navView.setOnNavigationItemSelectedListener(item -> {
-            Fragment selectedFragment = new BuatJanjiFragment();
+            Fragment selectedFragment = new HomeFragment();
             switch (item.getItemId()) {
                 case R.id.navigation_buat_janji: {
                     navView.getMenu().findItem(R.id.navigation_buat_janji).setEnabled(false);

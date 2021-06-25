@@ -19,9 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selamat Datang,\nHalodoc"
+        android:text="Selamat Datang,\nPengguna"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

@@ -92,6 +92,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
 
     <Button
         android:id="@+id/loginBtn"
@@ -104,7 +114,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="20sp"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,7 +128,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/belum_memiliki_akun"
+            android:text="Belum memili akun "
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:textSize="16sp"
@@ -126,9 +136,11 @@
             app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
         <TextView
+            android:id="@+id/registerTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/daftar"
+            android:padding="10dp"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/black" />
