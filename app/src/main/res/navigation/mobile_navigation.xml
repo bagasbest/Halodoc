@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_buat_janji">
+
+    <fragment
+        android:id="@+id/navigation_buat_janji"
+        android:name="com.halodoc.halodoc.ui.buatjanji.BuatJanjiFragment"
+        android:label="Buat Janji"
+        tools:layout="@layout/fragment_buatjanji" />
+
+    <fragment
+        android:id="@+id/navigation_konsultasi"
+        android:name="com.halodoc.halodoc.ui.consultation.ConsultationFragment"
+        android:label="@string/konsultasi"
+        tools:layout="@layout/fragment_consultation" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.halodoc.halodoc.ui.home.HomeFragment"
+        android:label="@string/beranda"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.halodoc.halodoc.ui.transaction.TransactionFragment"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.halodoc.halodoc.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+
+</navigation>

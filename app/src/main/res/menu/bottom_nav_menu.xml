@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_buat_janji"
+        android:icon="@drawable/ic_baseline_chrome_reader_mode_24"
+        android:title="@string/buat_janji" />
+
+    <item
+        android:id="@+id/navigation_konsultasi"
+        android:icon="@drawable/ic_baseline_chat_bubble_24"
+        android:title="@string/konsultasi" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/beranda" />
+
+    <item
+        android:id="@+id/navigation_transaction"
+        android:icon="@drawable/ic_baseline_all_inbox_24"
+        android:title="@string/transaksi" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_baseline_face_24"
+        android:title="@string/profil" />
+
+</menu>

@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Halodoc</string>
+    <string name="image">image</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="daftar">Daftar</string>
+    <string name="belum_memiliki_akun">Belum memiliki akun?</string>
+    <string name="login">Login</string>
+    <string name="silahkan_login">Silahkan Login</string>
+    <string name="silahkan_mendaftar">Silahkan Mendaftar</string>
+    <string name="sudah_memiliki_akun">Sudah memiliki akun?</string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="buat_janji">Buat Janji</string>
+    <string name="konsultasi">Konsultasi</string>
+    <string name="beranda">Beranda</string>
+    <string name="transaksi">Transaksi</string>
+    <string name="profil">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
