@@ -1,17 +1,23 @@
 package com.halodoc.halodoc.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.databinding.FragmentHomeBinding;
+import com.halodoc.halodoc.ui.home.buatjanji.HospitalActivity;
+import com.halodoc.halodoc.ui.home.lainnya.MenuLainnyaActivity;
 import com.halodoc.halodoc.utils.HomeBackground;
+
+import org.jetbrains.annotations.NotNull;
 
 
 public class HomeFragment extends Fragment {
@@ -38,11 +44,30 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
 
-
-
-
-
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // KLIK BUAT JANJI RS
+        clickBuatJanjiRS();
+
+        // KLIK MENU LAINNYA
+        clickOtherMenu();
+    }
+
+    private void clickBuatJanjiRS() {
+        binding.cardView.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), HospitalActivity.class));
+        });
+    }
+
+    private void clickOtherMenu() {
+        binding.cardView4.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), MenuLainnyaActivity.class));
+        });
     }
 
     private void checkIfUserLoginOrNot() {

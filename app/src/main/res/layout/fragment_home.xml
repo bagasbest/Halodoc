@@ -67,6 +67,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
+            android:src="@drawable/hospital"
             android:contentDescription="@string/image" />
 
     </androidx.cardview.widget.CardView>
@@ -100,6 +101,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
+            android:src="@drawable/consulting"
             android:contentDescription="@string/image" />
 
     </androidx.cardview.widget.CardView>
@@ -131,6 +133,7 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:src="@drawable/medicine"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:contentDescription="@string/image" />
@@ -166,6 +169,7 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:src="@drawable/other"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:contentDescription="@string/image" />

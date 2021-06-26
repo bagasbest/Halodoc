@@ -97,8 +97,12 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Jenis Kelamin tidak boleh kosong", Toast.LENGTH_SHORT).show();
             return;
         }
+        else if(dob.isEmpty()) {
+            Toast.makeText(this, "Tanggal Lahir tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // PENDAFTARAN AKUN BARU KE DATABASE
+
         binding.progressBar.setVisibility(View.VISIBLE);
         FirebaseAuth
                 .getInstance()
@@ -164,9 +168,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, mon, day) -> {
-            // mon = mon + 1;
-            // String date = makeDateString(day, mon, year);
+             mon = mon + 1;
 
+            String date = makeDateString(day, mon, year);
+            binding.button.setText(date);
         };
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);

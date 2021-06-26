@@ -27,10 +27,21 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.navigation_home);
         // untuk mengganti halaman contoh: halaman Buat Janji -> halaman Konsultasi -> halaman Beranda -> halaman Transaksi -> halaman Profil
         navView.setOnNavigationItemSelectedListener(item -> {
             Fragment selectedFragment = new HomeFragment();
             switch (item.getItemId()) {
+                case R.id.navigation_home: {
+                    navView.getMenu().findItem(R.id.navigation_buat_janji).setEnabled(true);
+                    navView.getMenu().findItem(R.id.navigation_konsultasi).setEnabled(true);
+                    navView.getMenu().findItem(R.id.navigation_home).setEnabled(false);
+                    navView.getMenu().findItem(R.id.navigation_transaction).setEnabled(true);
+                    navView.getMenu().findItem(R.id.navigation_profile).setEnabled(true);
+                    selectedFragment = new HomeFragment();
+                    break;
+                }
+
                 case R.id.navigation_buat_janji: {
                     navView.getMenu().findItem(R.id.navigation_buat_janji).setEnabled(false);
                     navView.getMenu().findItem(R.id.navigation_konsultasi).setEnabled(true);
@@ -49,15 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                     selectedFragment = new ConsultationFragment();
                     break;
                 }
-                case R.id.navigation_home: {
-                    navView.getMenu().findItem(R.id.navigation_buat_janji).setEnabled(true);
-                    navView.getMenu().findItem(R.id.navigation_konsultasi).setEnabled(true);
-                    navView.getMenu().findItem(R.id.navigation_home).setEnabled(false);
-                    navView.getMenu().findItem(R.id.navigation_transaction).setEnabled(true);
-                    navView.getMenu().findItem(R.id.navigation_profile).setEnabled(true);
-                    selectedFragment = new HomeFragment();
-                    break;
-                }
+
                 case R.id.navigation_transaction: {
                     navView.getMenu().findItem(R.id.navigation_buat_janji).setEnabled(true);
                     navView.getMenu().findItem(R.id.navigation_konsultasi).setEnabled(true);

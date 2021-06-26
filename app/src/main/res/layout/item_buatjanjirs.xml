@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvBuatJanji"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:elevation="10dp"
+    tools:ignore="SmallSp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/hospitalDp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:riv_corner_radius="10dp"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"/>
+
+
+    <TextView
+        android:id="@+id/hospitalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hospital Name"
+        android:maxLines="1"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/hospitalType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rumah Sakit Umum"
+        android:layout_marginTop="35dp"
+        android:textSize="11sp"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:layout_marginStart="120dp"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_location_on_24"
+        android:layout_marginTop="55dp"
+        app:tint="@color/background"
+        android:layout_marginStart="115dp"
+        android:contentDescription="@string/image"/>
+
+    <TextView
+        android:id="@+id/hospotalLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setia Budi, Jakarta Selatan"
+        android:textSize="11sp"
+        android:maxLines="1"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="57dp"
+        android:layout_marginStart="140dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="120dp">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rounded_five_dp2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/buat_janji"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp" />
+
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

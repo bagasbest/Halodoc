@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(view -> {
             String email = binding.emailEt.getText().toString().trim();
             String password = binding.passwordEt.getText().toString().trim();
-            
+
             if (email.isEmpty()) {
                 binding.emailEt.setError("Email tidak boleh kosong");
                 return;

@@ -8,19 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Halodoc">
-        <activity
-            android:name=".HomeActivity"
-            android:theme="@style/Theme.Halodoc2" />
-        <activity
-            android:name=".RegisterActivity"
-            android:theme="@style/Theme.Halodoc2" />
-        <activity
-            android:name=".LoginActivity"
-            android:theme="@style/Theme.Halodoc2" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.Halodoc2">
+        android:theme="@style/Theme.Halodoc2">
+        <activity android:name=".ui.home.buatjanji.HospitalPaymentActivity"></activity>
+        <activity android:name=".ui.home.buatjanji.HospitalDetailActivity" />
+        <activity android:name=".ui.home.buatjanji.HospitalActivity" />
+        <activity android:name=".ui.home.lainnya.MenuLainnyaActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

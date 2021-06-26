@@ -20,4 +20,41 @@
     <string name="profil">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button" />
+    <string name="pilih_spesialis">Pilih Spesialis</string>
+    <string name="pilih_layanan">Pilih Layanan</string>
+
+    <string-array name="specialist">
+        <item>Covid-19 Test</item>
+        <item>Vaksinasi Covid-19</item>
+        <item>Kandungan dan Kebidanan (Obgyn)</item>
+        <item>Poliklinik Bedah</item>
+        <item>Poliklinik Penyakit Dalam</item>
+        <item>Poliklinik Jantung dan Pembuluh Darah</item>
+        <item>Poliklinik Anak</item>
+        <item>Perawatan Gigi</item>
+        <item>Poliklinik Gigi Spesialis</item>
+        <item>Perawatan Kecantikan</item>
+        <item>Poliklinik Mata</item>
+        <item>Medical Check Up</item>
+        <item>Poliklinik Telinga Hidung Tenggorokan</item>
+        <item>Poliklinik Umum</item>
+        <item>Poliklinik Radiologi</item>
+        <item>Laboratorium</item>
+        <item>Poliklinik Andrologi</item>
+        <item>Poliklinik Kedokteran Jiwa atau Psikiatri</item>
+        <item>Poliklinik Kedokteran Fisik dan Rehabilitasi</item>
+        <item>Pemeriksaan Diagnostik</item>
+        <item>Perawatan</item>
+        <item>Vaksinasi</item>
+        <item>Poliklinik Anestesiologi dan Terapi Intensif</item>
+        <item>Poliklinik Pulmonologi dan Kedokteran Respirasi (Paru)</item>
+        <item>Poliklinik Kedokteran Olahraga</item>
+        <item>Poliklinik Patologi</item>
+        <item>Poliklinik Akupunktur</item>
+        <item>Poliklinik Patologi Anatomi</item>
+        <item>Poliklinik Kedokteran Forensik</item>
+    </string-array>
+
+
 </resources>
