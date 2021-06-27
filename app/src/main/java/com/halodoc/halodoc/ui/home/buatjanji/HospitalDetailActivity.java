@@ -1,19 +1,31 @@
 package com.halodoc.halodoc.ui.home.buatjanji;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.R;
 import com.halodoc.halodoc.databinding.ActivityHospitalDetailBinding;
 import com.halodoc.halodoc.utils.DatePickerFragment;
 import com.halodoc.halodoc.utils.MonthPicker;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 import java.util.List;
@@ -32,6 +44,7 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
     private String bookingDate;
     private String services;
     private String notes;
+    private String price;
 
     private HospitalModel hospitalModel;
 
@@ -54,6 +67,12 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
         binding.title.setText(name);
         binding.type.setText(type);
         binding.description.setText(about);
+
+        Glide.with(this)
+                .load(dp)
+                .into(binding.imageView8);
+
+
 
         //klik booking date
         clickBookingDate();
@@ -79,11 +98,23 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         binding.servicesEt.setAdapter(adapter);
-        services = binding.servicesEt.getText().toString();
-//        binding.servicesEt.setOnItemClickListener((adapterView, view, i, l) -> {
-//            initRecyclerView();
-//            initViewModel(binding.specialist.getText().toString());
-//        });
+        binding.servicesEt.setOnItemClickListener((adapterView, view, i, l) -> {
+            services = binding.servicesEt.getText().toString();
+            getPriceByService(services);
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void getPriceByService(String services) {
+        FirebaseFirestore
+                .getInstance()
+                .collection("price")
+                .document(services)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    price = "" + documentSnapshot.get("price");
+                    binding.price.setText("Biaya: Rp. " + price);
+                });
     }
 
     private void clickNext() {
@@ -96,6 +127,7 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
             intent.putExtra(HospitalPaymentActivity.EXTRA_SERVICES, services);
             intent.putExtra(HospitalPaymentActivity.EXTRA_BOOKING_DATE, bookingDate);
             intent.putExtra(HospitalPaymentActivity.EXTRA_NOTES, notes);
+            intent.putExtra(HospitalPaymentActivity.EXTRA_PRICE, price);
             startActivity(intent);
         });
     }
@@ -126,10 +158,8 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        bookingDate = makeDateString(day, month, year);
+        bookingDate = makeDateString(day, month+1, year);
         binding.bookingDate.setText(bookingDate);
-
-
     }
 
     private String makeDateString(int day, int month, int year) {

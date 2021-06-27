@@ -71,6 +71,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.BuatJa
             cv.setOnClickListener(view -> {
                 Intent intent = new Intent(itemView.getContext(), HospitalDetailActivity.class);
                 intent.putExtra(HospitalDetailActivity.EXTRA_HOSPITAL, hospitalModel);
+                itemView.getContext().startActivity(intent);
             });
 
         }
