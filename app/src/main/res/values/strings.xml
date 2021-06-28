@@ -23,6 +23,8 @@
     <string name="button" />
     <string name="pilih_spesialis">Pilih Spesialis</string>
     <string name="pilih_layanan">Pilih Layanan</string>
+    <string name="progress">Dalam Proses</string>
+    <string name="done">Selesai</string>
 
     <string-array name="specialist">
         <item>Covid-19 Test</item>

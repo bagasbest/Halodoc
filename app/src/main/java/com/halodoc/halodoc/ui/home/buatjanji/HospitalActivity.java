@@ -68,7 +68,7 @@ public class HospitalActivity extends AppCompatActivity {
     }
 
     private void initViewModel(String specialist) {
-        // tampilkan daftar belanjaan di Halaman Order/Payment
+        // tampilkan daftar rumah sakit
         HospitalViewModel viewModel = new ViewModelProvider(this).get(HospitalViewModel.class);
 
 

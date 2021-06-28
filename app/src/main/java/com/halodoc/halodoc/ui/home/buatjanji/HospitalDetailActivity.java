@@ -15,10 +15,6 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.R;
 import com.halodoc.halodoc.databinding.ActivityHospitalDetailBinding;
@@ -46,6 +42,8 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
     private String notes;
     private String price;
 
+    private List<String> servicesAvailable;
+
     private HospitalModel hospitalModel;
 
     @Override
@@ -62,6 +60,7 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
         dp = hospitalModel.getDp();
         about = hospitalModel.getAbout();
         uid = hospitalModel.getUid();
+        servicesAvailable = hospitalModel.getServices();
 
 
         binding.title.setText(name);
@@ -92,8 +91,7 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
 
     private void setServices() {
         //tampilkan kecamatan
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.specialist, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, servicesAvailable);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -119,8 +117,19 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
 
     private void clickNext() {
         binding.nextBtn.setOnClickListener(view -> {
-
             notes = binding.notesEt.getText().toString().trim();
+            if(services == null){
+                Toast.makeText(this, "Mohon pilih pelayanan yang anda inginkan", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else if(bookingDate == null) {
+                Toast.makeText(this, "Mohon pilih tanggal yang anda inginkan", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else if(notes.isEmpty()) {
+                Toast.makeText(this, "Mohon masukkan catatan", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             Intent intent = new Intent(this, HospitalPaymentActivity.class);
             intent.putExtra(HospitalPaymentActivity.EXTRA_HOSPITAL, hospitalModel);

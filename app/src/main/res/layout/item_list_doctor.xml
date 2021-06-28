@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:elevation="10dp"
+    android:id="@+id/cvDoctor"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/dp"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:elevation="10dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="16dp"
+        app:riv_corner_radius="10dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="20sp"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:text="Nama Dokter" />
+
+    <TextView
+        android:id="@+id/sertifikatKeahlian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dokter Penyakit Dalam"
+        android:textStyle="bold"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="45dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_work_24"
+        android:layout_marginTop="70dp"
+        android:contentDescription="@string/image"
+        android:layout_marginStart="130dp" />
+
+    <TextView
+        android:id="@+id/pengalaman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bekerja selama 5 tahun"
+        android:textColor="@color/black"
+        android:layout_marginTop="75dp"
+        android:layout_marginStart="160dp"
+        android:textSize="11sp"/>
+
+    <ImageView
+        android:id="@+id/thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_thumb_up_24"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/image" />
+
+    <TextView
+        android:id="@+id/like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99.0%"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="105dp"
+        android:layout_marginStart="160dp" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Biaya: Rp.25.000"
+        android:textSize="11sp"
+        android:layout_marginTop="130dp"
+        android:layout_marginStart="130dp"
+        android:textColor="@color/black"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_five_dp2"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Konsultasi"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="3dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

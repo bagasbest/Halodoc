@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cvTransaction"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    app:cardCornerRadius="10dp"
+    android:elevation="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/dp"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        app:riv_corner_radius="10dp"
+        android:elevation="10dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="130dp"/>
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="16dp"
+        android:text="Type"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_event_note_24"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@string/image"
+        android:layout_marginStart="130dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_access_time_24"
+        android:layout_marginTop="80dp"
+        android:contentDescription="@string/image"
+        android:layout_marginStart="130dp" />
+
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:maxLines="1"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="160dp"
+        android:text="notes" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:maxLines="1"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="160dp"
+        android:text="time" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:maxLines="1"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="130dp"
+        android:text="price" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp">
+
+        <View
+            android:id="@+id/background"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_five_dp2"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:text="Belum Diverifikasi" />
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

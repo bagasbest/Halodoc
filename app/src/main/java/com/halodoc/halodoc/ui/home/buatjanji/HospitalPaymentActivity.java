@@ -1,6 +1,5 @@
 package com.halodoc.halodoc.ui.home.buatjanji;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.HomeActivity;
@@ -51,6 +49,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
     private String price;
     private String type;
     private String dp;
+    private String location;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -65,6 +64,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
         uid = hospitalModel.getUid();
         type = hospitalModel.getType();
         dp = hospitalModel.getDp();
+        location = hospitalModel.getLocation();
         services = getIntent().getStringExtra(EXTRA_SERVICES);
         bookingDate = getIntent().getStringExtra(EXTRA_BOOKING_DATE);
         notes = getIntent().getStringExtra(EXTRA_NOTES);
@@ -140,6 +140,10 @@ public class HospitalPaymentActivity extends AppCompatActivity {
             hospitalPromisePayment.put("userUid", userUid);
             hospitalPromisePayment.put("services", services);
             hospitalPromisePayment.put("price", price);
+            hospitalPromisePayment.put("type", type);
+            hospitalPromisePayment.put("dp",dp);
+            hospitalPromisePayment.put("name", name);
+            hospitalPromisePayment.put("location", location);
             hospitalPromisePayment.put("bookingDate", bookingDate);
             hospitalPromisePayment.put("notes", notes);
             hospitalPromisePayment.put("status", "Sedang Dalam Proses");
@@ -161,6 +165,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
             // TRANSAKSI
             Map<String, Object> transaction = new HashMap<>();
             transaction.put("uid", timeInMillis);
+            transaction.put("userUid", userUid);
             transaction.put("name", name);
             transaction.put("type", type);
             transaction.put("dp", dp);
@@ -169,6 +174,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
             transaction.put("bookingDate", bookingDate);
             transaction.put("status", "Belum Diverifikasi");
             transaction.put("transactionType", "Rumah Sakit");
+            transaction.put("paymentProof", HospitalDatabase.proofPayment);
 
             FirebaseFirestore
                     .getInstance()
@@ -193,6 +199,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
                 .setTitle("Berhasi Mengunggah Bukti Pembayaran")
                 .setMessage("Admin akan memverifikasi bukti pembayaran yang kamu kirimkan, terima kasih telah menggunakan Halodoc")
                 .setIcon(R.drawable.ic_baseline_check_circle_24)
+                .setCancelable(false)
                 .setPositiveButton("YA", (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                     Intent intent = new Intent(HospitalPaymentActivity.this, HomeActivity.class);

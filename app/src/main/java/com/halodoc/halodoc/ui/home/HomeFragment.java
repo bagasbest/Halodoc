@@ -14,6 +14,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.databinding.FragmentHomeBinding;
 import com.halodoc.halodoc.ui.home.buatjanji.HospitalActivity;
+import com.halodoc.halodoc.ui.home.konsultasi.ConsultationDashboardActivity;
 import com.halodoc.halodoc.ui.home.lainnya.MenuLainnyaActivity;
 import com.halodoc.halodoc.utils.HomeBackground;
 
@@ -56,6 +57,15 @@ public class HomeFragment extends Fragment {
 
         // KLIK MENU LAINNYA
         clickOtherMenu();
+
+        // KLIK MENU KONSULTASI
+        clickConsultationMenu();
+    }
+
+    private void clickConsultationMenu() {
+        binding.cardView2.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), ConsultationDashboardActivity.class));
+        });
     }
 
     private void clickBuatJanjiRS() {
@@ -81,9 +91,7 @@ public class HomeFragment extends Fragment {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             binding.greeting.setText("Selamat Datang,\n " + document.get("name"));
-//                            if (("" + document.get("role")).equals("admin")) {
-//                                binding.addProduct.setVisibility(View.VISIBLE);
-//                            }
+
                         }
                     });
         }

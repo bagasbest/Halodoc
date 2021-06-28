@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvHistoryBuatJanji"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp"
+    android:elevation="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="15dp"
+        app:riv_corner_radius="10dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:maxLines="1"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="33dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_location_on_24"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="125dp"
+        android:contentDescription="@string/image"
+        app:tint="@color/background" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_event_note_24"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="125dp"
+        android:contentDescription="@string/image"
+        app:tint="@color/background" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_access_time_24"
+        android:layout_marginTop="105dp"
+        android:layout_marginStart="125dp"
+        android:contentDescription="@string/image"
+        app:tint="@color/background" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="55dp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notes"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="19 Agustus 2020, 19:00:00"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="105dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
+
+        <View
+            android:id="@+id/background"
+            android:layout_width="180dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="140dp"
+            android:background="@drawable/rounded_five_dp2" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="143dp"
+            android:layout_marginEnd="20sp"
+            android:text="Sedang Dalam Proses"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
