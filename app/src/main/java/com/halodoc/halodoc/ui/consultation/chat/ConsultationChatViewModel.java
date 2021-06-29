@@ -1,4 +1,4 @@
-package com.halodoc.halodoc.ui.consultation;
+package com.halodoc.halodoc.ui.consultation.chat;
 
 import android.util.Log;
 
@@ -8,11 +8,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalModel;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ConsultationChatViewModel extends ViewModel {
 

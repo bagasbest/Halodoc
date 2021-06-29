@@ -51,6 +51,7 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
     private String customerName;
     private String uid;
     private String customerDp;
+    private String notes;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -82,6 +83,13 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
 
         // KLIK UNGGAH BUKTI TRANSFER
         binding.proofPayment.setOnClickListener(view -> {
+            notes = binding.notesEt.getText().toString().trim();
+
+            if(notes.isEmpty()) {
+                Toast.makeText(this, "Silahkan tulis catatan konsultasi terlebih dahulu", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             ImagePicker
                     .with(this)
                     .galleryOnly()
@@ -160,22 +168,24 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
         SimpleDateFormat getDate = new SimpleDateFormat("dd MMMM yyyy");
         String format = getDate.format(new Date());
 
-        Map<String, Object> proofPaymentImage = new HashMap<>();
-        proofPaymentImage.put("uid", timeInMillis);
-        proofPaymentImage.put("doctorUid", doctorUid);
-        proofPaymentImage.put("doctorName", name);
-        proofPaymentImage.put("customerUid", uid);
-        proofPaymentImage.put("customerName", customerName);
-        proofPaymentImage.put("services", services);
-        proofPaymentImage.put("price", price);
-        proofPaymentImage.put("dp", dp);
+        Map<String, Object> consultation = new HashMap<>();
+        consultation.put("uid", timeInMillis);
+        consultation.put("doctorUid", doctorUid);
+        consultation.put("doctorName", name);
+        consultation.put("customerUid", uid);
+        consultation.put("customerName", customerName);
+        consultation.put("services", services);
+        consultation.put("price", price);
+        consultation.put("doctorDp", dp);
+        consultation.put("status", "waiting");
+        consultation.put("customerDp", customerDp);
 
 
         FirebaseFirestore
                 .getInstance()
                 .collection("consultation")
                 .document(timeInMillis)
-                .set(proofPaymentImage)
+                .set(consultation)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // TRANSAKSI
@@ -198,6 +208,7 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
         transaction.put("services", services);
         transaction.put("price", price);
         transaction.put("bookingDate", format);
+        transaction.put("notes", notes);
         transaction.put("status", "Belum Diverifikasi");
         transaction.put("proofPayment", proofPayment);
         transaction.put("transactionType", "Konsultasi");
@@ -223,18 +234,12 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
     private void showSuccessDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Berhasi Mengunggah Bukti Pembayaran")
-                .setMessage("Admin akan memverifikasi bukti pembayaran yang kamu kirimkan, terima kasih telah menggunakan Halodoc")
+                .setMessage("Admin akan memverifikasi bukti pembayaran yang kamu kirimkan, terima kasih telah menggunakan Halodoc\n\nUntuk memulai konsultasi, silahkan pilih navigasi konsultasi, kamu bisa melakukan konsultasi setelah bukti pembayaranmu terverifikasi")
                 .setIcon(R.drawable.ic_baseline_check_circle_24)
                 .setCancelable(false)
                 .setPositiveButton("YA", (dialogInterface, i) -> {
                     dialogInterface.dismiss();
-                    Intent intent = new Intent(ConsultationPaymentActivity.this, ConsultationChatActivity.class);
-                    intent.putExtra(ConsultationChatActivity.EXTRA_DOCTOR_DP, dp);
-                    intent.putExtra(ConsultationChatActivity.EXTRA_DOCTOR_NAME, name);
-                    intent.putExtra(ConsultationChatActivity.EXTRA_DOCTOR_UID, doctorUid);
-                    intent.putExtra(ConsultationChatActivity.EXTRA_CUSTOMER_NAME, customerName);
-                    intent.putExtra(ConsultationChatActivity.EXTRA_CUSTOMER_UID, uid);
-                    intent.putExtra(ConsultationChatActivity.EXTRA_CUSTOMER_DP, dp);
+                    Intent intent = new Intent(ConsultationPaymentActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();

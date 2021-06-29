@@ -63,10 +63,6 @@ public class BuatJanjiFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void viewPagerConfig() {
-
-    }
-
     private void checkIsUserLoginOrNot() {
         if(user != null) {
             binding.notLogin.setVisibility(View.GONE);

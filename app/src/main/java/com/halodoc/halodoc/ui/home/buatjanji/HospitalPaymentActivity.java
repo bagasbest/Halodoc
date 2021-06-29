@@ -146,7 +146,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
             hospitalPromisePayment.put("location", location);
             hospitalPromisePayment.put("bookingDate", bookingDate);
             hospitalPromisePayment.put("notes", notes);
-            hospitalPromisePayment.put("status", "Sedang Dalam Proses");
+            hospitalPromisePayment.put("status", "waiting");
             hospitalPromisePayment.put("paymentProof", HospitalDatabase.proofPayment);
 
             FirebaseFirestore
@@ -159,39 +159,44 @@ public class HospitalPaymentActivity extends AppCompatActivity {
                             binding.progressBar.setVisibility(View.GONE);
                             Log.e("Error Buat Janji", task.toString());
                             Toast.makeText(HospitalPaymentActivity.this, "Gagal mengunggah bukti pembayaran", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-            // TRANSAKSI
-            Map<String, Object> transaction = new HashMap<>();
-            transaction.put("uid", timeInMillis);
-            transaction.put("userUid", userUid);
-            transaction.put("name", name);
-            transaction.put("type", type);
-            transaction.put("dp", dp);
-            transaction.put("services", services);
-            transaction.put("price", price);
-            transaction.put("bookingDate", bookingDate);
-            transaction.put("status", "Belum Diverifikasi");
-            transaction.put("transactionType", "Rumah Sakit");
-            transaction.put("paymentProof", HospitalDatabase.proofPayment);
-
-            FirebaseFirestore
-                    .getInstance()
-                    .collection("transaction")
-                    .document(timeInMillis)
-                    .set(transaction)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            binding.progressBar.setVisibility(View.GONE);
-                            showSuccessDialog();
                         } else {
-                            binding.progressBar.setVisibility(View.GONE);
-                            Log.e("Error Transaction", task.toString());
-                            Toast.makeText(HospitalPaymentActivity.this, "Gagal membuat transaksi", Toast.LENGTH_SHORT).show();
+                            transaction(timeInMillis, userUid);
                         }
                     });
         }
+    }
+
+    private void transaction(String timeInMillis, String userUid) {
+        // TRANSAKSI
+        Map<String, Object> transaction = new HashMap<>();
+        transaction.put("uid", timeInMillis);
+        transaction.put("userUid", userUid);
+        transaction.put("name", name);
+        transaction.put("type", type);
+        transaction.put("dp", dp);
+        transaction.put("notes", notes);
+        transaction.put("services", services);
+        transaction.put("price", price);
+        transaction.put("bookingDate", bookingDate);
+        transaction.put("status", "Belum Diverifikasi");
+        transaction.put("transactionType", "Rumah Sakit");
+        transaction.put("paymentProof", HospitalDatabase.proofPayment);
+
+        FirebaseFirestore
+                .getInstance()
+                .collection("transaction")
+                .document(timeInMillis)
+                .set(transaction)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        showSuccessDialog();
+                    } else {
+                        binding.progressBar.setVisibility(View.GONE);
+                        Log.e("Error Transaction", task.toString());
+                        Toast.makeText(HospitalPaymentActivity.this, "Gagal membuat transaksi", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void showSuccessDialog() {

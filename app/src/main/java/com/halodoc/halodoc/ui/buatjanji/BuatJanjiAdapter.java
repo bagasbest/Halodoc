@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,9 +89,23 @@ public class BuatJanjiAdapter extends RecyclerView.Adapter<BuatJanjiAdapter.Buat
             }
 
             cvHistoryBuatJanji.setOnClickListener(view -> {
-                Intent intent = new Intent(itemView.getContext(), BuatJanjiDetailActivity.class);
-                intent.putExtra(BuatJanjiDetailActivity.EXTRA_HOSPITAL, buatJanjiModel);
-                itemView.getContext().startActivity(intent);
+                if(buatJanjiModel.getStatus().equals("waiting")) {
+                    new AlertDialog.Builder(itemView.getContext())
+                            .setTitle("Pembayaran Sedang Diverifikasi")
+                            .setMessage("Kamu akan langsung mendapatkan tiket janji Rumah sakit, setelah admin Halodoc memverifikasi bukti pembayaran kamu")
+                            .setIcon(R.drawable.ic_baseline_warning_amber_24)
+                            .setCancelable(false)
+                            .setPositiveButton("YA", (dialogInterface, i) -> {
+                                dialogInterface.dismiss();
+                            })
+                            .show();
+                }
+                else if(buatJanjiModel.getStatus().equals("Sedang Dalam Proses")) {
+                    Intent intent = new Intent(itemView.getContext(), BuatJanjiDetailActivity.class);
+                    intent.putExtra(BuatJanjiDetailActivity.EXTRA_HOSPITAL, buatJanjiModel);
+                    itemView.getContext().startActivity(intent);
+                }
+
             });
 
         }

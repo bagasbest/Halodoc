@@ -32,35 +32,12 @@ public class DoneBuatJanjiFragment extends Fragment {
         binding = FragmentDoneBuatJanjiBinding.inflate(inflater, container, false);
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // CEK APAKAH ADMIN ATAU BUKAN
-        checkIsAdminOrNot();
+        // TAMPILKAN RIWAYAT BUAT JANJI RS (SELESAI)
+        initRecyclerView();
+        initViewModel();
 
         return binding.getRoot();
     }
-
-    private void checkIsAdminOrNot() {
-        FirebaseFirestore
-                .getInstance()
-                .collection("users")
-                .document(userUid)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (("" + document.get("role")).equals("admin")) {
-                            // user yang login adalah admin
-                            initRecyclerView();
-                            initViewModel("admin");
-                        } else {
-                            // user yang login adalah pengguna biasa/kustomer
-                            initRecyclerView();
-                            initViewModel("user");
-                        }
-                    }
-                });
-    }
-
-
 
     private void initRecyclerView() {
         binding.rvProgressBuatJanji.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -69,16 +46,11 @@ public class DoneBuatJanjiFragment extends Fragment {
         binding.rvProgressBuatJanji.setAdapter(adapter);
     }
 
-    private void initViewModel(String role) {
-        // tampilkan daftar belanjaan di Halaman Order/Payment
+    private void initViewModel() {
         BuatJanjiViewModel viewModel = new ViewModelProvider(this).get(BuatJanjiViewModel.class);
 
         binding.progressBar.setVisibility(View.VISIBLE);
-        if (role.equals("admin")) {
-            viewModel.setDataByAdminSide();
-        } else {
-            viewModel.setDataByUserIdDone(userUid);
-        }
+        viewModel.setDataByUserIdDone(userUid);
         viewModel.getData().observe(getViewLifecycleOwner(), list -> {
             if (list.size() > 0) {
                 binding.noData.setVisibility(View.GONE);

@@ -1,4 +1,4 @@
-package com.halodoc.halodoc.ui.consultation;
+package com.halodoc.halodoc.ui.consultation.chat;
 
 import android.view.LayoutInflater;
 import android.view.View;
