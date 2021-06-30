@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.vipulasri:ticketview:1.1.2'
 
     // FIREBASE DATABASE
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
@@ -55,6 +56,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-firestore:23.0.1'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+
+    // QRCODE GENERATOR
+    implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -175,9 +175,10 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
         consultation.put("customerUid", uid);
         consultation.put("customerName", customerName);
         consultation.put("services", services);
+        consultation.put("notes", notes);
         consultation.put("price", price);
         consultation.put("doctorDp", dp);
-        consultation.put("status", "waiting");
+        consultation.put("status", "Belum Diverifikasi");
         consultation.put("customerDp", customerDp);
 
 
@@ -205,13 +206,14 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
         transaction.put("name", name);
         transaction.put("type", type);
         transaction.put("dp", dp);
+        transaction.put("userUid", uid);
         transaction.put("services", services);
         transaction.put("price", price);
         transaction.put("bookingDate", format);
         transaction.put("notes", notes);
         transaction.put("status", "Belum Diverifikasi");
-        transaction.put("proofPayment", proofPayment);
-        transaction.put("transactionType", "Konsultasi");
+        transaction.put("paymentProof", proofPayment);
+        transaction.put("transactionType", "consultation");
 
         FirebaseFirestore
                 .getInstance()

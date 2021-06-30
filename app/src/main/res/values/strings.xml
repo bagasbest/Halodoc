@@ -58,5 +58,12 @@
         <item>Poliklinik Kedokteran Forensik</item>
     </string-array>
 
+    <string-array name="jenis">
+        <item>Makanan</item>
+        <item>Minuman</item>
+        <item>Obat-obatan</item>
+        <item>Alat-alat</item>
+    </string-array>
+
 
 </resources>

@@ -19,6 +19,7 @@ public class ConsultationChatViewModel extends ViewModel {
     private static final String TAG = ConsultationChatViewModel.class.getSimpleName();
 
     public void setChatList(String uid1, String uid2) {
+
         chatModelArrayList.clear();
 
         try {

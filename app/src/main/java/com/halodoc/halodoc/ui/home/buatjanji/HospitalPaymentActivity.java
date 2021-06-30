@@ -146,7 +146,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
             hospitalPromisePayment.put("location", location);
             hospitalPromisePayment.put("bookingDate", bookingDate);
             hospitalPromisePayment.put("notes", notes);
-            hospitalPromisePayment.put("status", "waiting");
+            hospitalPromisePayment.put("status", "Belum Diverifikasi");
             hospitalPromisePayment.put("paymentProof", HospitalDatabase.proofPayment);
 
             FirebaseFirestore
@@ -179,7 +179,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
         transaction.put("price", price);
         transaction.put("bookingDate", bookingDate);
         transaction.put("status", "Belum Diverifikasi");
-        transaction.put("transactionType", "Rumah Sakit");
+        transaction.put("transactionType", "hospitalPromisePayment");
         transaction.put("paymentProof", HospitalDatabase.proofPayment);
 
         FirebaseFirestore

@@ -42,12 +42,18 @@ public class ProfileFragment extends Fragment {
     private static final int REQUEST_FROM_GALLERY_TO_SELF_PHOTO = 1001;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        populateUI();
+
+    }
+
+    @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        populateUI();
         return binding.getRoot();
     }
 
@@ -142,6 +148,9 @@ public class ProfileFragment extends Fragment {
     private void populateUI() {
         if (user != null) {
 
+            binding.notLogin.setVisibility(View.GONE);
+            binding.constraintLayout.setVisibility(View.VISIBLE);
+
             // TERAPKAN BACKGROUND SESUAI WAKTU
             HomeBackground.setBackgroundImage(getActivity(), binding.imageView2);
 
@@ -189,6 +198,10 @@ public class ProfileFragment extends Fragment {
                         Log.e("Error get profil", e.toString());
                         Toast.makeText(getActivity(), "Gagal mengambil data pengguna", Toast.LENGTH_SHORT).show();
                     });
+
+        } else {
+            binding.notLogin.setVisibility(View.VISIBLE);
+            binding.constraintLayout.setVisibility(View.GONE);
 
         }
     }

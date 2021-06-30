@@ -16,20 +16,6 @@ public class MenuLainnyaActivity extends AppCompatActivity {
 
     private ActivityMenuLainnyaBinding binding;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // CEK APAKAH USER SUDAH LOGIN ATAU BELUM
-        checkIsUserLoginOrNot();
-    }
-
-    private void checkIsUserLoginOrNot() {
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            binding.logoutBtn.setVisibility(View.VISIBLE);
-        } else {
-            binding.logoutBtn.setVisibility(View.GONE);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +23,8 @@ public class MenuLainnyaActivity extends AppCompatActivity {
         binding = ActivityMenuLainnyaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // CEK APAKAH PENGGUNA SUDAH LOGIN ATAU BELUM
+        checkIsUserLoginOrNot();
 
 
         // KLIK BACK BUTTON
@@ -45,7 +33,45 @@ public class MenuLainnyaActivity extends AppCompatActivity {
         // KLIK LOGOUT BUTTON
         clickLogoutButton();
 
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            binding.iv1.setOnClickListener(view -> {
+                Intent intent = new Intent(this, DevelopmentActivity.class);
+                intent.putExtra(DevelopmentActivity.EXTRA_TITLE, "Paket Sehat");
+                startActivity(intent);
+            });
 
+            binding.iv2.setOnClickListener(view -> {
+                Intent intent = new Intent(this, LokasiTersimpanActivity.class);
+                intent.putExtra(LokasiTersimpanActivity.EXTRA_TITLE, "Lokasi Tersimpan");
+                startActivity(intent);
+            });
+
+            binding.iv3.setOnClickListener(view -> {
+                Intent intent = new Intent(this, BantuanActivity.class);
+                intent.putExtra(BantuanActivity.EXTRA_TITLE, "Bantuan");
+                startActivity(intent);
+            });
+
+            binding.iv4.setOnClickListener(view -> {
+                Intent intent = new Intent(this, DevelopmentActivity.class);
+                intent.putExtra(DevelopmentActivity.EXTRA_TITLE, "Bahasa");
+                startActivity(intent);
+            });
+
+            binding.iv5.setOnClickListener(view -> {
+                Intent intent = new Intent(this, DevelopmentActivity.class);
+                intent.putExtra(DevelopmentActivity.EXTRA_TITLE, "Metode Pembayaran");
+                startActivity(intent);
+            });
+        }
+    }
+
+    private void checkIsUserLoginOrNot() {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            binding.logoutBtn.setVisibility(View.VISIBLE);
+        } else {
+            binding.logoutBtn.setVisibility(View.GONE);
+        }
     }
 
     private void clickLogoutButton() {

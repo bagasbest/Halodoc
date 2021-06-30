@@ -1,7 +1,10 @@
 package com.halodoc.halodoc.ui.transaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,10 +15,9 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.halodoc.halodoc.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.halodoc.halodoc.LoginActivity;
 import com.halodoc.halodoc.databinding.FragmentTransactionBinding;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalAdapter;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,35 +29,70 @@ public class TransactionFragment extends Fragment {
     private TransactionAdapter adapter;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        checkIsUserLoginOrNot();
+    }
+
+    @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentTransactionBinding.inflate(inflater, container, false);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        checkIsUserLoginOrNot();
-
-
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.loginBtn.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            getActivity().finish();
+        });
     }
 
     private void checkIsUserLoginOrNot() {
         if(user != null) {
             binding.notLogin.setVisibility(View.GONE);
-
-            // TAMPILKAN SEMUA RUMAH SAKIT YANG TERSEDIA
-            initRecyclerView();
-            initViewModel("all");
+            binding.transactionHistory.setVisibility(View.VISIBLE);
+            //CEK APAKAH YANG LOGIN MERUPAKAN USER / ADMIN
+            checkIsAdminOrNot();
         }
         else {
             binding.notLogin.setVisibility(View.VISIBLE);
+            binding.transactionHistory.setVisibility(View.GONE);
+
         }
     }
 
-    private void initRecyclerView() {
+    private void checkIsAdminOrNot() {
+        FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document(user.getUid())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                   if(("" + documentSnapshot.get("role")).equals("admin")) {
+                       // TAMPILKAN SEMUA TRANSAKSI DARI SELURUH USER
+                       initRecyclerView("admin");
+                       initViewModel("admin");
+                   } else {
+                       // TAMPILKAN SEMUA TRANSAKSI DARI USER TERSEBUT
+                       initRecyclerView("user");
+                       initViewModel("user");
+                   }
+                });
+    }
+
+    private void initRecyclerView(String role) {
         binding.rvTransaction.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TransactionAdapter();
+        adapter = new TransactionAdapter(role);
         adapter.notifyDataSetChanged();
         binding.rvTransaction.setAdapter(adapter);
     }
@@ -65,21 +102,20 @@ public class TransactionFragment extends Fragment {
         // tampilkan daftar rumah sakit
         TransactionViewModel viewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
-
         if (role.equals("admin")) {
-          //  viewModel.setHospitalByAllSpecialist();
+            viewModel.setAllTransaction();
         } else {
             viewModel.setTransactionByUid(user.getUid());
         }
 
         viewModel.getTransaction().observe(getViewLifecycleOwner(), transactionModelArrayList -> {
             if (transactionModelArrayList.size() > 0) {
-            //    binding.noData.setVisibility(View.GONE);
+                binding.noData.setVisibility(View.GONE);
                 adapter.setData(transactionModelArrayList);
             } else {
-             //   binding.noData.setVisibility(View.VISIBLE);
+                binding.noData.setVisibility(View.VISIBLE);
             }
-         //   binding.progressBar.setVisibility(View.GONE);
+            binding.progressBar.setVisibility(View.GONE);
         });
 
     }

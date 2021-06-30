@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.halodoc.halodoc.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.databinding.FragmentConsultationStatusDoneBinding;
-import com.halodoc.halodoc.databinding.FragmentConsultationStatusProgressBinding;
 import com.halodoc.halodoc.ui.consultation.ConsultationAdapter;
 import com.halodoc.halodoc.ui.consultation.ConsultationViewModel;
 
@@ -26,14 +26,21 @@ public class ConsultationStatusDoneFragment extends Fragment {
     private String userUid;
 
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = FragmentConsultationStatusDoneBinding.inflate(inflater, container, false);
+    public void onResume() {
+        super.onResume();
+
+        userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // TAMPILKAN RIWAYAT KONSULTASI
         initRecyclerView();
         initViewModel();
+    }
+
+    @Override
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = FragmentConsultationStatusDoneBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }
@@ -48,17 +55,38 @@ public class ConsultationStatusDoneFragment extends Fragment {
     private void initViewModel() {
         ConsultationViewModel viewModel = new ViewModelProvider(this).get(ConsultationViewModel.class);
 
-        binding.progressBar.setVisibility(View.VISIBLE);
-        viewModel.setFinishConsultation(userUid);
-        viewModel.getConsultation().observe(getViewLifecycleOwner(), list -> {
-            if (list.size() > 0) {
-                binding.noData.setVisibility(View.GONE);
-                adapter.setData(list);
-            } else {
-                binding.noData.setVisibility(View.VISIBLE);
-            }
-            binding.progressBar.setVisibility(View.GONE);
-        });
+        FirebaseFirestore
+                .getInstance()
+                .collection("consultation")
+                .whereEqualTo("customerUid", userUid)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if(queryDocumentSnapshots.size() > 0) {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        viewModel.setFinishConsultation(userUid, "customerUid");
+                        viewModel.getConsultation().observe(getViewLifecycleOwner(), list -> {
+                            if (list.size() > 0) {
+                                binding.noData.setVisibility(View.GONE);
+                                adapter.setData(list);
+                            } else {
+                                binding.noData.setVisibility(View.VISIBLE);
+                            }
+                            binding.progressBar.setVisibility(View.GONE);
+                        });
+                    } else {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        viewModel.setFinishConsultation(userUid, "doctorUid");
+                        viewModel.getConsultation().observe(getViewLifecycleOwner(), list -> {
+                            if (list.size() > 0) {
+                                binding.noData.setVisibility(View.GONE);
+                                adapter.setData(list);
+                            } else {
+                                binding.noData.setVisibility(View.VISIBLE);
+                            }
+                            binding.progressBar.setVisibility(View.GONE);
+                        });
+                    }
+                });
     }
 
     @Override

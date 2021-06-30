@@ -2,6 +2,8 @@ package com.halodoc.halodoc.ui.home.konsultasi;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -16,6 +18,7 @@ public class VerifiedDoctorDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR = "doctor";
     private String doctorUid;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,11 @@ public class VerifiedDoctorDetailActivity extends AppCompatActivity {
 
         // KLIK VERIFIKASI DOKTER
         clickVerified();
+
+        // KLIK KEMBALI KE HALAMAN SEBELUMNYA
+        binding.backButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
     }
 

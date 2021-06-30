@@ -1,20 +1,17 @@
-package com.halodoc.halodoc.ui.buatjanji;
+package com.halodoc.halodoc.ui.buatjanji.status;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.halodoc.halodoc.R;
 import com.halodoc.halodoc.databinding.FragmentDoneBuatJanjiBinding;
+import com.halodoc.halodoc.ui.buatjanji.BuatJanjiAdapter;
+import com.halodoc.halodoc.ui.buatjanji.BuatJanjiViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,15 +23,19 @@ public class DoneBuatJanjiFragment extends Fragment {
     private String userUid;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // TAMPILKAN RIWAYAT BUAT JANJI RS (SELESAI)
+        initRecyclerView();
+        initViewModel();
+    }
+
+    @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentDoneBuatJanjiBinding.inflate(inflater, container, false);
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        // TAMPILKAN RIWAYAT BUAT JANJI RS (SELESAI)
-        initRecyclerView();
-        initViewModel();
 
         return binding.getRoot();
     }

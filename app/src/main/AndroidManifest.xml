@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Halodoc2">
-        <activity android:name=".ui.consultation.ConsultationPaymentActivity"></activity>
+        <activity android:name=".ui.home.lainnya.EmailKamiActivity"></activity>
+        <activity android:name=".ui.home.lainnya.BantuanActivity" />
+        <activity android:name=".ui.home.lainnya.LokasiTersimpanActivity" />
+        <activity android:name=".ui.home.lainnya.DevelopmentActivity" />
+        <activity android:name=".ui.consultation.ConsultationNoteActivity" />
+        <activity android:name=".ui.home.tokokesehatan.TokoKesehatanPaymentActivity" />
+        <activity android:name=".ui.home.tokokesehatan.TokoKesehatanDetailActivity" />
+        <activity android:name=".ui.home.tokokesehatan.TokoKesehatanActivity" />
+        <activity android:name=".ui.transaction.TransactionDetailActivity" />
+        <activity android:name=".ui.consultation.ConsultationPaymentActivity" />
         <activity android:name=".ui.consultation.chat.ConsultationChatActivity" />
         <activity android:name=".ui.home.konsultasi.ConsultationWithDoctorDetailActivity" />
         <activity android:name=".ui.home.konsultasi.VerifiedDoctorDetailActivity" />

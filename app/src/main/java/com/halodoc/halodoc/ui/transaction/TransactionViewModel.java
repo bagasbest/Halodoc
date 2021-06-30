@@ -7,12 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalModel;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalViewModel;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class TransactionViewModel extends ViewModel {
 
@@ -39,7 +36,7 @@ public class TransactionViewModel extends ViewModel {
                                 model.setName("" + document.get("name"));
                                 model.setNotes("" + document.get("notes"));
                                 model.setPrice("" + document.get("price"));
-                                model.setProofPayment(""+ document.get("proofPayment"));
+                                model.setProofPayment(""+ document.get("paymentProof"));
                                 model.setServices("" + document.get("services"));
                                 model.setStatus("" + document.get("status"));
                                 model.setTransactionType("" + document.get("transactionType"));
@@ -57,6 +54,44 @@ public class TransactionViewModel extends ViewModel {
             error.printStackTrace();
         }
     }
+
+    public void setAllTransaction() {
+        transactionModelArrayList.clear();
+
+        try {
+            FirebaseFirestore
+                    .getInstance()
+                    .collection("transaction")
+                    .orderBy("status", Query.Direction.ASCENDING)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                TransactionModel model = new TransactionModel();
+                                model.setBookingDate("" + document.get("bookingDate"));
+                                model.setDp("" + document.get("dp"));
+                                model.setName("" + document.get("name"));
+                                model.setNotes("" + document.get("notes"));
+                                model.setPrice("" + document.get("price"));
+                                model.setProofPayment(""+ document.get("paymentProof"));
+                                model.setServices("" + document.get("services"));
+                                model.setStatus("" + document.get("status"));
+                                model.setTransactionType("" + document.get("transactionType"));
+                                model.setUid("" + document.get("uid"));
+                                model.setUserUid("" + document.get("userUid"));
+
+                                transactionModelArrayList.add(model);
+                            }
+                            listTransaction.postValue(transactionModelArrayList);
+                        } else {
+                            Log.e(TAG, task.toString());
+                        }
+                    });
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+    }
+
 
     public LiveData<ArrayList<TransactionModel>> getTransaction() {
         return listTransaction;

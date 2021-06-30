@@ -18,7 +18,7 @@ public class ConsultationWithDoctorViewModel extends ViewModel {
 
     private static final String TAG = ConsultationWithDoctorViewModel.class.getSimpleName();
 
-    public void setDoctorBySpecialist(String specialist) {
+    public void setDoctorBySpecialist(String specialist, String uid) {
         consultationWithDoctorModelArrayList.clear();
 
         try {
@@ -26,6 +26,7 @@ public class ConsultationWithDoctorViewModel extends ViewModel {
                     .getInstance()
                     .collection("doctor")
                     .whereEqualTo("sertifikatKeahlian", specialist)
+                    .whereNotEqualTo("uid", uid)
                     .get()
                     .addOnCompleteListener(task -> {
                         if(task.isSuccessful()) {
@@ -57,13 +58,14 @@ public class ConsultationWithDoctorViewModel extends ViewModel {
         }
     }
 
-    public void setAllDoctor() {
+    public void setAllDoctor(String uid) {
         consultationWithDoctorModelArrayList.clear();
 
         try {
             FirebaseFirestore
                     .getInstance()
                     .collection("doctor")
+                    .whereNotEqualTo("uid", uid)
                     .get()
                     .addOnCompleteListener(task -> {
                         if(task.isSuccessful()) {

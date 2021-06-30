@@ -18,14 +18,14 @@ public class ConsultationViewModel extends ViewModel {
 
     private static final String TAG = ConsultationViewModel.class.getSimpleName();
 
-    public void setUser(String userUid) {
+    public void setUser(String userUid, String option) {
         consultationModelArrayList.clear();
 
         try {
             FirebaseFirestore
                     .getInstance()
                     .collection("consultation")
-                    .whereEqualTo("userUid", userUid)
+                    .whereEqualTo(option, userUid)
                     .whereNotEqualTo("status", "Selesai")
                     .get()
                     .addOnCompleteListener(task -> {
@@ -43,6 +43,8 @@ public class ConsultationViewModel extends ViewModel {
                                 model.setUserDp("" + document.get("customerDp"));
                                 model.setUserName("" + document.get("customerName"));
                                 model.setUserUid("" + document.get("customerUid"));
+                                model.setNotes("" + document.get("notes"));
+
 
                                 consultationModelArrayList.add(model);
                             }
@@ -56,14 +58,14 @@ public class ConsultationViewModel extends ViewModel {
         }
     }
 
-    public void setFinishConsultation(String userUid) {
+    public void setFinishConsultation(String userUid, String option) {
         consultationModelArrayList.clear();
 
         try {
             FirebaseFirestore
                     .getInstance()
                     .collection("consultation")
-                    .whereEqualTo("userUid", userUid)
+                    .whereEqualTo(option, userUid)
                     .whereEqualTo("status", "Selesai")
                     .get()
                     .addOnCompleteListener(task -> {
@@ -81,6 +83,7 @@ public class ConsultationViewModel extends ViewModel {
                                 model.setUserDp("" + document.get("customerDp"));
                                 model.setUserName("" + document.get("customerName"));
                                 model.setUserUid("" + document.get("customerUid"));
+                                model.setNotes("" + document.get("notes"));
 
                                 consultationModelArrayList.add(model);
                             }

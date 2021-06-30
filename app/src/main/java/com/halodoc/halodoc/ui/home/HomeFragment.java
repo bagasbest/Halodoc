@@ -16,6 +16,7 @@ import com.halodoc.halodoc.databinding.FragmentHomeBinding;
 import com.halodoc.halodoc.ui.home.buatjanji.HospitalActivity;
 import com.halodoc.halodoc.ui.home.konsultasi.ConsultationDashboardActivity;
 import com.halodoc.halodoc.ui.home.lainnya.MenuLainnyaActivity;
+import com.halodoc.halodoc.ui.home.tokokesehatan.TokoKesehatanActivity;
 import com.halodoc.halodoc.utils.HomeBackground;
 
 import org.jetbrains.annotations.NotNull;
@@ -60,6 +61,15 @@ public class HomeFragment extends Fragment {
 
         // KLIK MENU KONSULTASI
         clickConsultationMenu();
+
+        //KLIK TOKO KESEHATAN
+        clickTokoKesehatan();
+    }
+
+    private void clickTokoKesehatan() {
+        binding.cardView3.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), TokoKesehatanActivity.class));
+        });
     }
 
     private void clickConsultationMenu() {

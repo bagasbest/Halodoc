@@ -84,12 +84,12 @@ public class BuatJanjiAdapter extends RecyclerView.Adapter<BuatJanjiAdapter.Buat
                     .load(buatJanjiModel.getDp())
                     .into(dp);
 
-            if(buatJanjiModel.getStatus().equals("Selesai")) {
+            if(buatJanjiModel.getStatus().equals("Selesai") || buatJanjiModel.getStatus().equals("Sudah Diverifikasi") ) {
                 background.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.done));
             }
 
             cvHistoryBuatJanji.setOnClickListener(view -> {
-                if(buatJanjiModel.getStatus().equals("waiting")) {
+                if(buatJanjiModel.getStatus().equals("Belum Diverifikasi")) {
                     new AlertDialog.Builder(itemView.getContext())
                             .setTitle("Pembayaran Sedang Diverifikasi")
                             .setMessage("Kamu akan langsung mendapatkan tiket janji Rumah sakit, setelah admin Halodoc memverifikasi bukti pembayaran kamu")
@@ -100,7 +100,7 @@ public class BuatJanjiAdapter extends RecyclerView.Adapter<BuatJanjiAdapter.Buat
                             })
                             .show();
                 }
-                else if(buatJanjiModel.getStatus().equals("Sedang Dalam Proses")) {
+                else if(buatJanjiModel.getStatus().equals("Sudah Diverifikasi")) {
                     Intent intent = new Intent(itemView.getContext(), BuatJanjiDetailActivity.class);
                     intent.putExtra(BuatJanjiDetailActivity.EXTRA_HOSPITAL, buatJanjiModel);
                     itemView.getContext().startActivity(intent);

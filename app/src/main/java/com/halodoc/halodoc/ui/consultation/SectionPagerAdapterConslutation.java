@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.halodoc.halodoc.ui.buatjanji.DoneBuatJanjiFragment;
-import com.halodoc.halodoc.ui.buatjanji.ProgressBuatJanjiFragment;
 import com.halodoc.halodoc.ui.consultation.status.ConsultationStatusDoneFragment;
 import com.halodoc.halodoc.ui.consultation.status.ConsultationStatusProgressFragment;
 

@@ -1,6 +1,5 @@
 package com.halodoc.halodoc.ui.home.buatjanji;
 
-
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;

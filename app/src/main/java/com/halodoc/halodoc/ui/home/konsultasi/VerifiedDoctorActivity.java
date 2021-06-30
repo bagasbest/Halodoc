@@ -16,14 +16,24 @@ public class VerifiedDoctorActivity extends AppCompatActivity {
     private ConsultationWithDoctorAdapter adapter;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // TAMPILKAN LIST DOKTER YANG INGIN DIVERIFIKASI
+        initRecyclerView();
+        initViewModel();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityVerifiedDoctorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // TAMPILKAN LIST DOKTER YANG INGIN DIVERIFIKASI
-        initRecyclerView();
-        initViewModel();
+        // KLIK KEMBALI KE HALAMAN SEBELUMNYA
+        binding.backButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
+
     }
 
     private void initRecyclerView() {

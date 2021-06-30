@@ -15,8 +15,35 @@ public class ConsultationModel implements Parcelable {
     private String status;
     private String service;
     private String price;
+    private String notes;
 
     public ConsultationModel () {}
+
+    protected ConsultationModel(Parcel in) {
+        consultationUid = in.readString();
+        userUid = in.readString();
+        doctorUid = in.readString();
+        userName = in.readString();
+        doctorName = in.readString();
+        userDp = in.readString();
+        doctorDp = in.readString();
+        status = in.readString();
+        service = in.readString();
+        price = in.readString();
+        notes = in.readString();
+    }
+
+    public static final Creator<ConsultationModel> CREATOR = new Creator<ConsultationModel>() {
+        @Override
+        public ConsultationModel createFromParcel(Parcel in) {
+            return new ConsultationModel(in);
+        }
+
+        @Override
+        public ConsultationModel[] newArray(int size) {
+            return new ConsultationModel[size];
+        }
+    };
 
     public String getConsultationUid() {
         return consultationUid;
@@ -98,30 +125,13 @@ public class ConsultationModel implements Parcelable {
         this.price = price;
     }
 
-    protected ConsultationModel(Parcel in) {
-        consultationUid = in.readString();
-        userUid = in.readString();
-        doctorUid = in.readString();
-        userName = in.readString();
-        doctorName = in.readString();
-        userDp = in.readString();
-        doctorDp = in.readString();
-        status = in.readString();
-        service = in.readString();
-        price = in.readString();
+    public String getNotes() {
+        return notes;
     }
 
-    public static final Creator<ConsultationModel> CREATOR = new Creator<ConsultationModel>() {
-        @Override
-        public ConsultationModel createFromParcel(Parcel in) {
-            return new ConsultationModel(in);
-        }
-
-        @Override
-        public ConsultationModel[] newArray(int size) {
-            return new ConsultationModel[size];
-        }
-    };
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
     @Override
     public int describeContents() {
@@ -140,5 +150,6 @@ public class ConsultationModel implements Parcelable {
         parcel.writeString(status);
         parcel.writeString(service);
         parcel.writeString(price);
+        parcel.writeString(notes);
     }
 }

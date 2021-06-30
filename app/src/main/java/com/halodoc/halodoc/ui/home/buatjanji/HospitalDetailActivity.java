@@ -15,7 +15,9 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.halodoc.halodoc.LoginActivity;
 import com.halodoc.halodoc.R;
 import com.halodoc.halodoc.databinding.ActivityHospitalDetailBinding;
 import com.halodoc.halodoc.utils.DatePickerFragment;
@@ -85,6 +87,13 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
         // PILIH LAYANAN
         setServices();
 
+        // LOGIN BUTTON
+        binding.loginBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
 
 
     }
@@ -117,27 +126,34 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
 
     private void clickNext() {
         binding.nextBtn.setOnClickListener(view -> {
-            notes = binding.notesEt.getText().toString().trim();
-            if(services == null){
-                Toast.makeText(this, "Mohon pilih pelayanan yang anda inginkan", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            else if(bookingDate == null) {
-                Toast.makeText(this, "Mohon pilih tanggal yang anda inginkan", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            else if(notes.isEmpty()) {
-                Toast.makeText(this, "Mohon masukkan catatan", Toast.LENGTH_SHORT).show();
-                return;
+            if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+                notes = binding.notesEt.getText().toString().trim();
+                if(services == null){
+                    Toast.makeText(this, "Mohon pilih pelayanan yang anda inginkan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(bookingDate == null) {
+                    Toast.makeText(this, "Mohon pilih tanggal yang anda inginkan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(notes.isEmpty()) {
+                    Toast.makeText(this, "Mohon masukkan catatan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Intent intent = new Intent(this, HospitalPaymentActivity.class);
+                intent.putExtra(HospitalPaymentActivity.EXTRA_HOSPITAL, hospitalModel);
+                intent.putExtra(HospitalPaymentActivity.EXTRA_SERVICES, services);
+                intent.putExtra(HospitalPaymentActivity.EXTRA_BOOKING_DATE, bookingDate);
+                intent.putExtra(HospitalPaymentActivity.EXTRA_NOTES, notes);
+                intent.putExtra(HospitalPaymentActivity.EXTRA_PRICE, price);
+                startActivity(intent);
+            } else {
+                binding.notLogin.setVisibility(View.VISIBLE);
+                binding.detailHospital.setVisibility(View.GONE);
             }
 
-            Intent intent = new Intent(this, HospitalPaymentActivity.class);
-            intent.putExtra(HospitalPaymentActivity.EXTRA_HOSPITAL, hospitalModel);
-            intent.putExtra(HospitalPaymentActivity.EXTRA_SERVICES, services);
-            intent.putExtra(HospitalPaymentActivity.EXTRA_BOOKING_DATE, bookingDate);
-            intent.putExtra(HospitalPaymentActivity.EXTRA_NOTES, notes);
-            intent.putExtra(HospitalPaymentActivity.EXTRA_PRICE, price);
-            startActivity(intent);
+
         });
     }
 
