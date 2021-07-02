@@ -91,7 +91,14 @@ public class TransactionFragment extends Fragment {
     }
 
     private void initRecyclerView(String role) {
-        binding.rvTransaction.setLayoutManager(new LinearLayoutManager(getContext()));
+        if(role.equals("admin")){
+            binding.rvTransaction.setLayoutManager(new LinearLayoutManager(getActivity()));
+        } else {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setReverseLayout(true);
+            layoutManager.setStackFromEnd(true);
+            binding.rvTransaction.setLayoutManager(layoutManager);
+        }
         adapter = new TransactionAdapter(role);
         adapter.notifyDataSetChanged();
         binding.rvTransaction.setAdapter(adapter);

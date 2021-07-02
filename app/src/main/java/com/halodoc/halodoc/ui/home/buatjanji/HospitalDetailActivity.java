@@ -99,7 +99,6 @@ public class HospitalDetailActivity extends AppCompatActivity implements DatePic
     }
 
     private void setServices() {
-        //tampilkan kecamatan
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, servicesAvailable);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

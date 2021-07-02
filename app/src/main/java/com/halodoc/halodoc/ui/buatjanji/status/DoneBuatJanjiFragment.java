@@ -41,10 +41,13 @@ public class DoneBuatJanjiFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        binding.rvProgressBuatJanji.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        binding.rvDoneBuatJanji.setLayoutManager(layoutManager);
         adapter = new BuatJanjiAdapter();
         adapter.notifyDataSetChanged();
-        binding.rvProgressBuatJanji.setAdapter(adapter);
+        binding.rvDoneBuatJanji.setAdapter(adapter);
     }
 
     private void initViewModel() {

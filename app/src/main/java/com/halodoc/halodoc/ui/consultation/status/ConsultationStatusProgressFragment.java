@@ -52,7 +52,10 @@ public class ConsultationStatusProgressFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        binding.rvConsultation.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        binding.rvConsultation.setLayoutManager(layoutManager);
         adapter = new ConsultationAdapter(userUid);
         adapter.notifyDataSetChanged();
         binding.rvConsultation.setAdapter(adapter);

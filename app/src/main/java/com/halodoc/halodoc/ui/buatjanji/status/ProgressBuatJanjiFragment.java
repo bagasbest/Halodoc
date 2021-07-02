@@ -42,7 +42,10 @@ public class ProgressBuatJanjiFragment extends Fragment {
 
 
     private void initRecyclerView() {
-        binding.rvProgressBuatJanji.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        binding.rvProgressBuatJanji.setLayoutManager(layoutManager);
         adapter = new BuatJanjiAdapter();
         adapter.notifyDataSetChanged();
         binding.rvProgressBuatJanji.setAdapter(adapter);

@@ -1,10 +1,8 @@
 package com.halodoc.halodoc.ui.consultation;
 
-import androidx.annotation.FontRes;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,23 +11,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.halodoc.halodoc.HomeActivity;
 import com.halodoc.halodoc.R;
 import com.halodoc.halodoc.databinding.ActivityConsultationPaymentBinding;
-import com.halodoc.halodoc.ui.home.buatjanji.HospitalPaymentActivity;
 import com.halodoc.halodoc.ui.home.konsultasi.ConsultationWithDoctorModel;
-import com.halodoc.halodoc.ui.profile.ProfileDatabase;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,7 +31,6 @@ import java.util.Map;
 public class ConsultationPaymentActivity extends AppCompatActivity {
 
     public static final String EXTRA_CONSULTATION = "consult";
-    private ConsultationWithDoctorModel model;
     private ActivityConsultationPaymentBinding binding;
     private final int REQUEST_FROM_GALLERY_TO_SELF_PHOTO = 1001;
 
@@ -52,6 +44,7 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
     private String uid;
     private String customerDp;
     private String notes;
+    private String paymentMethod;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -64,7 +57,7 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
 
 
         // TAMPILKAN DETAIL INFORMASI DOKTER YANG INGIN DIVERIFIKASI
-        model = getIntent().getParcelableExtra(EXTRA_CONSULTATION);
+        ConsultationWithDoctorModel model = getIntent().getParcelableExtra(EXTRA_CONSULTATION);
         name = model.getName();
         type = model.getSertifikatKeahlian();
         dp = model.getDp();
@@ -98,9 +91,59 @@ public class ConsultationPaymentActivity extends AppCompatActivity {
                     .start(REQUEST_FROM_GALLERY_TO_SELF_PHOTO);
         });
 
+        // KLIK SELESAIKAN TRANSAKSI
+        binding.finishBtn.setOnClickListener(view -> {
+            paymentMethod = binding.paymentMethodEt.getText().toString();
+            notes = binding.notesEt.getText().toString().trim();
+
+            if(paymentMethod.isEmpty()) {
+                Toast.makeText(this, "Pilih metode pembayaran", Toast.LENGTH_SHORT).show();
+                return;
+            } else if(notes.isEmpty()) {
+                Toast.makeText(this, "Catatan tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ProgressDialog mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...");
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.show();
+
+            setProofPaymentToConsultation(mProgressDialog, paymentMethod);
+        });
+
 
         getCustomerName();
 
+        // METODE PEMBAYARAN
+        pickPaymentMethod();
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void pickPaymentMethod() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.payment, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        binding.paymentMethodEt.setAdapter(adapter);
+        binding.paymentMethodEt.setOnItemClickListener((adapterView, view, i, l) -> {
+            paymentMethod = binding.paymentMethodEt.getText().toString();
+            if(paymentMethod.equals("Transfer Bank")) {
+                binding.text100.setVisibility(View.VISIBLE);
+                binding.proofPayment.setVisibility(View.VISIBLE);
+                binding.imageHint.setVisibility(View.VISIBLE);
+                binding.finishBtn.setVisibility(View.GONE);
+                binding.textView26.setText("No Rekening: 123 45678 90123");
+            } else {
+                binding.text100.setVisibility(View.INVISIBLE);
+                binding.proofPayment.setVisibility(View.GONE);
+                binding.imageHint.setVisibility(View.INVISIBLE);
+                binding.finishBtn.setVisibility(View.VISIBLE);
+                binding.textView26.setText("No " + paymentMethod +": 0812 3456 7890");
+            }
+        });
     }
 
     private void getCustomerName() {

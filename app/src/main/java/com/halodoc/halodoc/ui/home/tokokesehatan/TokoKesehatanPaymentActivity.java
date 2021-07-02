@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +41,7 @@ public class TokoKesehatanPaymentActivity extends AppCompatActivity {
     private String type;
     int rp;
     private static final int REQUEST_FROM_GALLERY_TO_SELF_PHOTO = 1001;
+    private String paymentMethod;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -60,6 +62,61 @@ public class TokoKesehatanPaymentActivity extends AppCompatActivity {
         // UNGGAH BUKTI PEMBAYARAN
         uploadProofPayment();
 
+        // METODE PEMBAYARAN
+        pickPaymentMethod();
+
+        //KEMBALI KE HALAMAN SEBELUMNYA
+        binding.backButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
+
+        // KLIK SELESAIKAN TRANSAKSI
+        binding.finishBtn.setOnClickListener(view -> {
+            paymentMethod = binding.paymentMethodEt.getText().toString();
+            String lokasi = binding.detailLokasi.getText().toString().trim();
+
+            if(paymentMethod.isEmpty()) {
+                Toast.makeText(this, "Pilih metode pembayaran", Toast.LENGTH_SHORT).show();
+                return;
+            } else if(lokasi.isEmpty()) {
+                Toast.makeText(this, "Masukkan detail lokasi", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ProgressDialog mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...");
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.show();
+
+            setProofPaymentToActivity(mProgressDialog, paymentMethod);
+        });
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void pickPaymentMethod() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.payment, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        binding.paymentMethodEt.setAdapter(adapter);
+        binding.paymentMethodEt.setOnItemClickListener((adapterView, view, i, l) -> {
+            paymentMethod = binding.paymentMethodEt.getText().toString();
+            if(paymentMethod.equals("Transfer Bank")) {
+                binding.textView19.setVisibility(View.VISIBLE);
+                binding.roundedImageView.setVisibility(View.VISIBLE);
+                binding.imageHint.setVisibility(View.VISIBLE);
+                binding.finishBtn.setVisibility(View.GONE);
+                binding.rekening.setText("No Rekening: 123 45678 90123");
+            } else {
+                binding.textView19.setVisibility(View.INVISIBLE);
+                binding.roundedImageView.setVisibility(View.GONE);
+                binding.imageHint.setVisibility(View.INVISIBLE);
+                binding.finishBtn.setVisibility(View.VISIBLE);
+                binding.rekening.setText("No " + paymentMethod +": 0812 3456 7890");
+            }
+        });
     }
 
     private void uploadProofPayment() {

@@ -44,9 +44,29 @@ public class TransactionDetailActivity extends AppCompatActivity {
         binding.status.setText("Status: " + model.getStatus());
         binding.notes.setText("Catatan: " + model.getNotes());
 
-        Glide.with(this)
-                .load(model.getProofPayment())
-                .into(binding.roundedImageView2);
+        // AMBIL BUKTI TRANSFER
+        switch (model.getProofPayment()) {
+            case "OVO" :
+                binding.textView29.setText("Bukti Transfer: Menggunakan OVO");
+                break;
+            case "DANA" :
+                binding.textView29.setText("Bukti Transfer: Menggunakan DANA");
+                break;
+            case "GO-PAY" :
+                binding.textView29.setText("Bukti Transfer: Menggunakan GO-PAY");
+                break;
+            case "LINK-AJA" :
+                binding.textView29.setText("Bukti Transfer: Menggunakan LINK-AJA");
+                break;
+            default:
+                binding.textView29.setText("Bukti Transfer:");
+                binding.roundedImageView2.setVisibility(View.VISIBLE);
+                Glide.with(this)
+                        .load(model.getProofPayment())
+                        .into(binding.roundedImageView2);
+                break;
+        }
+
 
 
         if (model.getStatus().equals("Sudah Diverifikasi")) {

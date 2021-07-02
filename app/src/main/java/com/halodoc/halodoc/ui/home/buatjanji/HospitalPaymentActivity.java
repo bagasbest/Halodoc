@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -50,6 +52,7 @@ public class HospitalPaymentActivity extends AppCompatActivity {
     private String type;
     private String dp;
     private String location;
+    private String paymentMethod;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -87,6 +90,48 @@ public class HospitalPaymentActivity extends AppCompatActivity {
         // UNGGAH BUKTI TRANSFER PEMBAYARAN
         uploadPaymentProof();
 
+        // KLIK SELESAIKAN TRANSAKSI
+        binding.finishBtn.setOnClickListener(view -> {
+            paymentMethod = binding.paymentMethodEt.getText().toString();
+
+            if(paymentMethod.isEmpty()) {
+                Toast.makeText(this, "Pilih metode pembayaran", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            binding.progressBar.setVisibility(View.VISIBLE);
+            savePaymentToDatabase();
+        });
+
+        // METODE PEMBAYARAN
+        pickPaymentMethod();
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void pickPaymentMethod() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.payment, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        binding.paymentMethodEt.setAdapter(adapter);
+        binding.paymentMethodEt.setOnItemClickListener((adapterView, view, i, l) -> {
+            paymentMethod = binding.paymentMethodEt.getText().toString();
+            if(paymentMethod.equals("Transfer Bank")) {
+                binding.textView19.setVisibility(View.VISIBLE);
+                binding.roundedImageView.setVisibility(View.VISIBLE);
+                binding.imageHint.setVisibility(View.VISIBLE);
+                binding.finishBtn.setVisibility(View.GONE);
+                binding.rekening.setText("No Rekening: 123 45678 90123");
+            } else {
+                binding.textView19.setVisibility(View.INVISIBLE);
+                binding.roundedImageView.setVisibility(View.GONE);
+                binding.imageHint.setVisibility(View.INVISIBLE);
+                binding.finishBtn.setVisibility(View.VISIBLE);
+                binding.rekening.setText("No " + paymentMethod +": 0812 3456 7890");
+            }
+        });
     }
 
     private void uploadPaymentProof() {
@@ -122,13 +167,13 @@ public class HospitalPaymentActivity extends AppCompatActivity {
 
                 // DELAY SELAMA 3 DETIK KEMUDIAN SIMPAN KE DATABASE
                 new Handler()
-                        .postDelayed(this::savePaymentToDatabase, 3000);
+                        .postDelayed(this::savePaymentToDatabase, 5000);
             }
         }
     }
 
     private void savePaymentToDatabase() {
-        if (HospitalDatabase.proofPayment != null) {
+        if (HospitalDatabase.proofPayment != null || !paymentMethod.isEmpty()) {
 
             String timeInMillis = String.valueOf(System.currentTimeMillis());
             String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -147,7 +192,11 @@ public class HospitalPaymentActivity extends AppCompatActivity {
             hospitalPromisePayment.put("bookingDate", bookingDate);
             hospitalPromisePayment.put("notes", notes);
             hospitalPromisePayment.put("status", "Belum Diverifikasi");
-            hospitalPromisePayment.put("paymentProof", HospitalDatabase.proofPayment);
+            if(!paymentMethod.isEmpty()) {
+                hospitalPromisePayment.put("paymentProof", paymentMethod);
+            } else {
+                hospitalPromisePayment.put("paymentProof", HospitalDatabase.proofPayment);
+            }
 
             FirebaseFirestore
                     .getInstance()
@@ -180,8 +229,11 @@ public class HospitalPaymentActivity extends AppCompatActivity {
         transaction.put("bookingDate", bookingDate);
         transaction.put("status", "Belum Diverifikasi");
         transaction.put("transactionType", "hospitalPromisePayment");
-        transaction.put("paymentProof", HospitalDatabase.proofPayment);
-
+        if(!paymentMethod.isEmpty()) {
+            transaction.put("paymentProof", paymentMethod);
+        } else {
+            transaction.put("paymentProof", HospitalDatabase.proofPayment);
+        }
         FirebaseFirestore
                 .getInstance()
                 .collection("transaction")

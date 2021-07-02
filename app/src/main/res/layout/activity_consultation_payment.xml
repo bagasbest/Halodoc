@@ -118,6 +118,26 @@
             app:layout_constraintTop_toBottomOf="@+id/pengalaman" />
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/paymentMethod"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/description">
+
+            <AutoCompleteTextView
+                android:id="@+id/paymentMethodEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Metode Pembayaran"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <View
             android:id="@+id/view9"
@@ -127,7 +147,7 @@
             android:background="@color/grey"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/paymentMethod"
             tools:layout_editor_absoluteX="16dp" />
 
 
@@ -161,7 +181,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="No Rekening: 123 45678 90123"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price" />
@@ -219,6 +238,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:layout_marginStart="16dp"
+            android:visibility="invisible"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -235,6 +255,7 @@
             app:riv_corner_radius="10dp"
             android:elevation="10dp"
             app:riv_border_color="@color/background"
+            android:visibility="gone"
             app:riv_border_width="2dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="50dp"
@@ -248,11 +269,24 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:contentDescription="@string/image"
+            android:visibility="invisible"
             android:src="@drawable/ic_baseline_photo_camera_24"
             app:layout_constraintBottom_toBottomOf="@+id/proofPayment"
             app:layout_constraintEnd_toEndOf="@+id/proofPayment"
             app:layout_constraintStart_toStartOf="@+id/proofPayment"
             app:layout_constraintTop_toTopOf="@+id/proofPayment" />
+
+        <Button
+            android:id="@+id/finishBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Selesaikan Transaksi"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/view10" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

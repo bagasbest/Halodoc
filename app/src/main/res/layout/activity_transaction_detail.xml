@@ -158,7 +158,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
-            android:text="Bukti Transfer"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view13" />
@@ -168,6 +167,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginTop="16dp"
+            android:visibility="gone"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

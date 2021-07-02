@@ -65,5 +65,13 @@
         <item>Alat-alat</item>
     </string-array>
 
+    <string-array name="payment">
+        <item>Transfer Bank</item>
+        <item>OVO</item>
+        <item>DANA</item>
+        <item>GO-PAY</item>
+        <item>LINK-AJA</item>
+
+    </string-array>
 
 </resources>

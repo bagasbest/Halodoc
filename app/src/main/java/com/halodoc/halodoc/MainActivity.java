@@ -15,8 +15,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Handler untuk menampilkan splash screen selama 4 detik (4000 mil detik) sebelum masuk ke login / homepage
         new Handler()
-                .postDelayed(()
-                        -> startActivity(new Intent(this, HomeActivity.class)), 4000);
+                .postDelayed(this::goToLoginPage, 4000);
+    }
 
+    private void goToLoginPage() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 }

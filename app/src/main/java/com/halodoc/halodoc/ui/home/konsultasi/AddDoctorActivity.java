@@ -131,7 +131,7 @@ public class AddDoctorActivity extends AppCompatActivity {
                 binding.description.setError("Deskripsi, tidak boleh kosong");
                 return;
             }
-            else if(sertifikatKeahlian == null){
+            else if(sertifikatKeahlian.isEmpty()){
                 binding.sertifikatKeahlian.setError("Sertifikat Keahlian, tidak boleh kosong");
                 return;
             }

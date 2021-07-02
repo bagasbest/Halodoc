@@ -47,7 +47,6 @@ public class HospitalActivity extends AppCompatActivity {
     }
 
     private void selectSpecialist() {
-        //tampilkan kecamatan
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.specialist, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
