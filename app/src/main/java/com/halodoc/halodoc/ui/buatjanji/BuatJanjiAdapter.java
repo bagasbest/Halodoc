@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class BuatJanjiAdapter extends RecyclerView.Adapter<BuatJanjiAdapter.BuatJanjiViewHolder> {
 
-    private ArrayList<BuatJanjiModel> listBuatJanji = new ArrayList<>();
+    private final ArrayList<BuatJanjiModel> listBuatJanji = new ArrayList<>();
     public void setData(ArrayList<BuatJanjiModel> items) {
         listBuatJanji.clear();
         listBuatJanji.addAll(items);
@@ -50,10 +50,15 @@ public class BuatJanjiAdapter extends RecyclerView.Adapter<BuatJanjiAdapter.Buat
 
     public static class BuatJanjiViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cvHistoryBuatJanji;
-        ImageView dp;
-        TextView name, type, location, notes, bookingDate, status;
-        View background;
+        final CardView cvHistoryBuatJanji;
+        final ImageView dp;
+        final TextView name;
+        final TextView type;
+        final TextView location;
+        final TextView notes;
+        final TextView bookingDate;
+        final TextView status;
+        final View background;
 
         public BuatJanjiViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

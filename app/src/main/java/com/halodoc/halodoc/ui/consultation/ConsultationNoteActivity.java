@@ -32,11 +32,10 @@ public class ConsultationNoteActivity extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // JIKA PENGGUNA SAAT INI DOTER, MAKA IA DAPAT MENULISKAN CATATAN DAN REKOMENDASI OBAT
+        // JIKA PENGGUNA SAAT INI DOTER, MAKA IA DAPAT MENULISKAN CATATAN DOKTER
         if(model.getDoctorUid().equals(uid)) {
             binding.sendNoteBtn.setVisibility(View.VISIBLE);
             binding.note.setEnabled(true);
-            binding.medRec.setEnabled(true);
 
             // AMBIL CATATAN
             getNote();
@@ -45,18 +44,14 @@ public class ConsultationNoteActivity extends AppCompatActivity {
             // KLIK KIRIM CATATAN & REKOMENDASI OBAT
             binding.sendNoteBtn.setOnClickListener(view -> {
                 String note = binding.note.getText().toString();
-                String medRecommendation = binding.medRec.getText().toString();
 
                 if(note.isEmpty()) {
                     binding.note.setError("Catatan tidak boleh kosong");
                     return;
-                } else if(medRecommendation.isEmpty()) {
-                    binding.medRec.setError("Rekomendasi Obat tidak boleh kosong");
-                    return;
                 }
 
                 // KIRIM CATATAN KE PENGGUNA (KUSTOMER)
-                sendNoteToUser(note, medRecommendation);
+                sendNoteToUser(note);
 
             });
 
@@ -66,6 +61,29 @@ public class ConsultationNoteActivity extends AppCompatActivity {
             getNote();
 
         }
+    }
+
+    private void sendNoteToUser(String note) {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, Object> notes = new HashMap<>();
+        notes.put("note", note);
+
+        FirebaseFirestore
+                .getInstance()
+                .collection("consultation")
+                .document(model.getConsultationUid())
+                .collection("doctorNote")
+                .document(model.getDoctorUid())
+                .set(notes)
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        Toast.makeText(ConsultationNoteActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+                    } else {
+                        binding.progressBar.setVisibility(View.GONE);
+                        Toast.makeText(ConsultationNoteActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void getNote() {
@@ -80,38 +98,10 @@ public class ConsultationNoteActivity extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if(documentSnapshot.exists()) {
                         String note = "" + documentSnapshot.get("note");
-                        String medRec = "" + documentSnapshot.get("medRec");
                         binding.note.setText(note);
-                        binding.medRec.setText(medRec);
                     } else {
                         binding.note.setText("");
-                        binding.medRec.setText("");
                     }
-                });
-    }
-
-    private void sendNoteToUser(String note, String medRecommendation) {
-
-        binding.progressBar.setVisibility(View.VISIBLE);
-        Map<String, Object> notes = new HashMap<>();
-        notes.put("note", note);
-        notes.put("medRec", medRecommendation);
-
-        FirebaseFirestore
-                .getInstance()
-                .collection("consultation")
-                .document(model.getConsultationUid())
-                .collection("doctorNote")
-                .document(model.getDoctorUid())
-                .set(notes)
-                .addOnCompleteListener(task -> {
-                   if(task.isSuccessful()) {
-                       binding.progressBar.setVisibility(View.GONE);
-                       Toast.makeText(ConsultationNoteActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
-                   } else {
-                       binding.progressBar.setVisibility(View.GONE);
-                       Toast.makeText(ConsultationNoteActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
-                   }
                 });
     }
 

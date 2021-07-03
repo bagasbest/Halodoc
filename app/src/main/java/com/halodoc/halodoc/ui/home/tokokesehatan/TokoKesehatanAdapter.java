@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class TokoKesehatanAdapter extends RecyclerView.Adapter<TokoKesehatanAdapter.ViewHolder> {
 
-    private ArrayList<TokoKesehatanModel> listProduct = new ArrayList<>();
+    private final ArrayList<TokoKesehatanModel> listProduct = new ArrayList<>();
     public void setData(ArrayList<TokoKesehatanModel> items){
         listProduct.clear();
         listProduct.addAll(items);

@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.halodoc.halodoc.R;
 import com.halodoc.halodoc.databinding.ActivityConsultationChatBinding;
+import com.halodoc.halodoc.ui.consultation.ConsultationMedRecActivity;
 import com.halodoc.halodoc.ui.consultation.ConsultationModel;
 import com.halodoc.halodoc.ui.consultation.ConsultationNoteActivity;
 
@@ -92,19 +93,28 @@ public class ConsultationChatActivity extends AppCompatActivity {
     }
 
     private void showOptionDialog() {
-        String []options = {"Catatan dan Rekomendasi Obat", "Selesaikan Konsultasi"};
+        String []options = {"Catatan Dokter", "Rekomendasi Obat", "Selesaikan Konsultasi"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pilihan");
         builder.setItems(options, (dialog, which) -> {
             if(which == 0) {
 
-                // CATATAN & REKOMENDASI OBAT
+                // CATATAN
                 dialog.dismiss();
                Intent intent = new Intent(ConsultationChatActivity.this, ConsultationNoteActivity.class);
                intent.putExtra(ConsultationNoteActivity.EXTRA_NOTE, model);
                startActivity(intent);
-            } else if(which == 1) {
+            }
+            else if (which == 1) {
+
+                // CATATAN & REKOMENDASI OBAT
+                dialog.dismiss();
+                Intent intent = new Intent(ConsultationChatActivity.this, ConsultationMedRecActivity.class);
+                intent.putExtra(ConsultationMedRecActivity.EXTRA_MEDREC, model);
+                startActivity(intent);
+            }
+            else if(which == 2) {
 
                 // SELESAIKAN KONSULTASI
                 dialog.dismiss();

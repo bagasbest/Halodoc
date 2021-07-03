@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
-            android:text="Catatan dan Rekomendasi Obat"
+            android:text="Catatan Dokter"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -64,38 +64,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout7"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:enabled="false"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/medRec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Rekomendasi Obat"
-                android:inputType="textMultiLine"
-                android:singleLine="false" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:visibility="gone"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/sendNoteBtn"
